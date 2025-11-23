@@ -1,0 +1,163 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  font-family: 'Poppins', sans-serif !important;
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Fullscreen canvas styling */
+#experience-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  outline: none;
+}
+
+/* lil-gui styles */
+.lil-gui,
+.lil-gui * {
+  font-family: "Poppins", sans-serif !important;
+}
+
+.lil-gui {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  color: #222;  /* Set default text color to dark */
+}
+
+.lil-gui .c {
+  background: #fff;
+  border: 1px solid #ccc;
+  padding: 4px;
+  color: #222 !important;
+}
+
+.lil-gui .dropdown,
+.lil-gui .dropdown-content {
+  background: #fff;
+  border: 1px solid #ccc;
+  font-family: inherit;
+  color: #010000;
+}
+
+.lil-gui .dropdown-content li {
+  font-family: inherit;
+  color: #7c7c7c;
+}
+
+/* Override titles for darker text */
+.lil-gui .title,
+.lil-gui .folder-title {
+  color: #676666 !important;
+}
+
+/* ---------------------- */
+/* Scrollable Section Styles */
+/* ---------------------- */
+.section {
+  display: flex;
+  flex-direction: column; /* Arrange children vertically */
+  justify-content: center;
+  align-items: left;
+  min-height: 35vh; /* Changed from height: 50vh; to min-height: 50vh; */
+  position: relative;
+  font-size: clamp(2rem, 4vmin, 4rem);
+  padding-left: 10%;
+  padding-right: 10%;
+  padding-bottom: 8%;
+  font-family: 'Poppins', sans-serif; /* Using Poppins */
+  color: #616161;
+}
+.section:nth-child(odd) {
+  justify-content: flex-end;
+}
+
+.section:nth-child(even) {
+  background-color: #e0e0e0;
+}
+
+#kitchen-section {
+  justify-content: center !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #1d9772;
+}
+
+.logo-placeholder img {
+  max-width: var(--logo-width, 200px);
+  width: 100%;
+  height: auto;
+}
+
+/* Visualiser Link Styling */
+.visualiser-link {
+  display: inline-block;
+  text-decoration: none;
+  color: #5f5f5f;
+  border: 2px solid #333;
+  padding: 10px 20px;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.visualiser-link:hover {
+  background-color: #333;
+  color: #fff;
+}
+
+p {
+  
+  margin-bottom: 1vmin;
+  font-size: clamp(1rem, 2vmin, 3rem);
+
+}
+
+#selection-list p {
+  font-size: 0.8rem !important; /* Adjust the size as needed */
+}
+#selection-list {
+  position: fixed;
+  top: 60px;
+  left: 10px;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.9);
+  color: #000;
+  font-family: 'Poppins', sans-serif;
+  z-index: 102;
+  /* Additional styling, such as border, shadow, etc. */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+@media (max-width: 600px) {
+  #control-panel {
+    height: auto;      // Let the control panel adjust its height automatically on small screens.
+    padding: 10px;     // Reduce padding to make more space for the content.
+  }
+  #category-row {
+    // Adjust font-size or padding for category buttons if needed
+    button {
+      padding: 10px 5px;
+      font-size: 0.9rem;
+    }
+  }
+  #options-row {
+    // Optionally reduce margins or gap to keep all options visible.
+    gap: 5px;
+  }
+}
+

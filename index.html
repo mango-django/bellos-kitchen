@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Google Font -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <title>Bellos Bespoke Tiles | Kitchen Visualiser 1.0</title>
+
+    <!-- Vite / Three.js app entry (this should already exist in your project) -->
+    <!-- If your entry file is different, update this path, e.g. /src/main.ts -->
+    <script type="module" src="/src/main.js"></script>
+  </head>
+  <body class="bg-slate-100 text-slate-900" style="font-family: 'Poppins', sans-serif;">
+    <!-- Three.js Canvas (hidden until "Open Kitchen Visualiser" is clicked) -->
+    <canvas
+      id="experience-canvas"
+      class="webgl fixed inset-0 -z-10 hidden"
+    ></canvas>
+
+    <!-- Page Content -->
+    <div class="min-h-screen flex flex-col">
+      <!-- Header -->
+      <header class="bg-white/90 backdrop-blur border-b border-slate-200">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between gap-4">
+          <div class="flex items-center gap-3">
+            <img
+              src="/images/bellos-website-logo-v4.png"
+              alt="Bellos Bespoke Tiles Logo"
+              class="h-10 w-auto"
+            />
+            <div class="hidden sm:block">
+              <p class="text-xs uppercase tracking-[0.2em] text-slate-500">Interactive Hub</p>
+              <p class="text-sm font-medium text-slate-800">Visualise Your Space in Real Time</p>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Main Content -->
+      <main class="flex-1">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 py-10 space-y-10">
+          <!-- Intro Section -->
+          <section class="space-y-4">
+            <h1 class="text-2xl sm:text-3xl md:text-4xl font-semibold tracking-tight text-slate-900">
+              Interactive Room Visualiser
+            </h1>
+            <p class="text-sm sm:text-base text-slate-600 max-w-2xl">
+              Welcome to the Bellos Interactive Hub. Explore our immersive 3D rooms,
+              experiment with tiles and finishes, and bring your design ideas to life
+              before you make a decision.
+            </p>
+          </section>
+
+          <!-- Visualiser Cards -->
+          <section class="space-y-6">
+            <h2 class="text-lg sm:text-xl font-semibold text-slate-900">
+              Choose a Room
+            </h2>
+
+            <div class="grid gap-6 md:gap-8 md:grid-cols-2">
+              <!-- Kitchen Visualiser (Active) -->
+              <article
+                class="group bg-white/90 border border-slate-200 rounded-2xl shadow-sm overflow-hidden flex flex-col md:flex-row"
+              >
+                <!-- Text / Controls -->
+                <div class="flex-1 p-5 sm:p-6 flex flex-col justify-between gap-4">
+                  <div class="space-y-2">
+                    <p class="text-xs uppercase tracking-[0.2em] text-slate-500">
+                      Available Now
+                    </p>
+                    <h3 class="text-lg sm:text-xl font-semibold text-slate-900">
+                      Kitchen Visualiser
+                    </h3>
+                    <p class="text-sm text-slate-600">
+                      Step into a modern kitchen and swap tiles, textures, and finishes in
+                      real time. Perfect for testing ideas before you renovate.
+                    </p>
+                  </div>
+                  <div class="flex flex-wrap items-center gap-3">
+                    <button
+                      id="open-kitchen"
+                      type="button"
+                      class="visualiser-link inline-flex items-center justify-center rounded-full px-4 py-2 text-sm font-medium bg-slate-900 text-white hover:bg-slate-800 transition"
+                    >
+                      Open Kitchen Visualiser
+                    </button>
+                    <span class="text-xs text-slate-500">
+                      Runs directly in your browser
+                    </span>
+                  </div>
+                </div>
+
+                <!-- Preview Image -->
+                <div
+                  class="md:w-64 lg:w-72 h-48 md:h-auto border-t md:border-t-0 md:border-l border-slate-200 overflow-hidden"
+                >
+                  <!-- Put a real image in /public/images/kitchen-visualiser.jpg -->
+                  <img
+                    src="/images/kitchen_01.jpg"
+                    alt="Kitchen visualiser preview"
+                    class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  />
+                </div>
+              </article>
+
+              <!-- Bathroom Visualiser (Coming Soon) -->
+              <article
+                class="bg-white/80 border border-dashed border-slate-300 rounded-2xl shadow-sm overflow-hidden flex flex-col md:flex-row opacity-80"
+              >
+                <div class="flex-1 p-5 sm:p-6 flex flex-col justify-between gap-4">
+                  <div class="space-y-2">
+                    <p class="text-xs uppercase tracking-[0.2em] text-slate-400">
+                      Coming Soon
+                    </p>
+                    <h3 class="text-lg sm:text-xl font-semibold text-slate-700">
+                      Bathroom Visualiser
+                    </h3>
+                    <p class="text-sm text-slate-500">
+                      Soon you’ll be able to explore bathroom layouts, tiles, and finishes
+                      in the same immersive way.
+                    </p>
+                  </div>
+                  <p class="text-xs text-slate-400">
+                    New Room Coming Soon
+                  </p>
+                </div>
+
+                <div
+                  class="md:w-64 lg:w-72 h-48 md:h-auto border-t md:border-t-0 md:border-l border-dashed border-slate-300 flex items-center justify-center"
+                >
+                  <p class="text-[11px] uppercase tracking-[0.2em] text-slate-400">
+                    New Room Coming Soon
+                  </p>
+                </div>
+              </article>
+
+              <!-- Living Room Visualiser (Coming Soon) -->
+              <article
+                class="bg-white/80 border border-dashed border-slate-300 rounded-2xl shadow-sm overflow-hidden flex flex-col md:flex-row opacity-80"
+              >
+                <div class="flex-1 p-5 sm:p-6 flex flex-col justify-between gap-4">
+                  <div class="space-y-2">
+                    <p class="text-xs uppercase tracking-[0.2em] text-slate-400">
+                      Coming Soon
+                    </p>
+                    <h3 class="text-lg sm:text-xl font-semibold text-slate-700">
+                      Living Room Visualiser
+                    </h3>
+                    <p class="text-sm text-slate-500">
+                      A warm, inviting living space visualiser to experiment with floors,
+                      wall finishes, and feature walls.
+                    </p>
+                  </div>
+                  <p class="text-xs text-slate-400">
+                    New Room Coming Soon
+                  </p>
+                </div>
+
+                <div
+                  class="md:w-64 lg:w-72 h-48 md:h-auto border-t md:border-t-0 md:border-l border-dashed border-slate-300 flex items-center justify-center"
+                >
+                  <p class="text-[11px] uppercase tracking-[0.2em] text-slate-400">
+                    New Room Coming Soon
+                  </p>
+                </div>
+              </article>
+
+              <!-- Bedroom Visualiser (Coming Soon) -->
+              <article
+                class="bg-white/80 border border-dashed border-slate-300 rounded-2xl shadow-sm overflow-hidden flex flex-col md:flex-row opacity-80"
+              >
+                <div class="flex-1 p-5 sm:p-6 flex flex-col justify-between gap-4">
+                  <div class="space-y-2">
+                    <p class="text-xs uppercase tracking-[0.2em] text-slate-400">
+                      Coming Soon
+                    </p>
+                    <h3 class="text-lg sm:text-xl font-semibold text-slate-700">
+                      Bedroom Visualiser
+                    </h3>
+                    <p class="text-sm text-slate-500">
+                      Visualise calming bedroom schemes with statement headboard walls,
+                      flooring, and subtle tile details.
+                    </p>
+                  </div>
+                  <p class="text-xs text-slate-400">
+                    New Room Coming Soon
+                  </p>
+                </div>
+
+                <div
+                  class="md:w-64 lg:w-72 h-48 md:h-auto border-t md:border-t-0 md:border-l border-dashed border-slate-300 flex items-center justify-center"
+                >
+                  <p class="text-[11px] uppercase tracking-[0.2em] text-slate-400">
+                    New Room Coming Soon
+                  </p>
+                </div>
+              </article>
+            </div>
+          </section>
+        </div>
+      </main>
+
+      <!-- Footer -->
+      <footer class="border-t border-slate-200 bg-white/80 backdrop-blur">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-slate-500">
+          <p>© <span id="year-span"></span> Bellos Bespoke Tiles. All rights reserved.</p>
+          <p class="text-[11px]">
+            Visual experiences by Plan Vector.
+          </p>
+        </div>
+      </footer>
+    </div>
+
+    <!-- Button & footer logic -->
+    <script>
+      // Footer year
+      (function () {
+        const yearSpan = document.getElementById('year-span');
+        if (yearSpan) {
+          yearSpan.textContent = new Date().getFullYear();
+        }
+      })();
+
+   
+    </script>
+  </body>
+</html>
