@@ -1491,9 +1491,7 @@ if (!kitchenOverlay) {
   const selectionWrapper = createSelectionWrapper();
   mainPanel.appendChild(selectionWrapper);
 
-  
-
-     // ----- MOBILE BOTTOM SHEET -----
+  // ----- MOBILE BOTTOM SHEET -----
   const bottomSheet = document.createElement("div");
   bottomSheet.id = "mobile-bottom-sheet";
   bottomSheet.style.position = "absolute";
@@ -1505,38 +1503,120 @@ if (!kitchenOverlay) {
   bottomSheet.style.borderTopRightRadius = "18px";
   bottomSheet.style.boxShadow = "0 -8px 20px rgba(0,0,0,0.12)";
   bottomSheet.style.display = "none"; // shown via media query
-  bottomSheet.style.flexDirection = "row";
-  bottomSheet.style.alignItems = "center";
-  bottomSheet.style.padding = "8px 12px";
+  bottomSheet.style.flexDirection = "column";
+  bottomSheet.style.padding = "8px 16px 12px 16px";
   bottomSheet.style.zIndex = "10";
-  // Height high enough to show the full thumbnail + padding
-  bottomSheet.style.height = "110px";
-  bottomSheet.style.boxSizing = "border-box";
+  bottomSheet.style.transition = "transform 0.25s ease-out";
 
-  // Helper: move to previous / next option in the current category
-  function selectAdjacentMobileOption(direction) {
-    const data = getCurrentCategoryData();
-    if (!data) return;
+  // panel sizing: partly visible state shows handle + summary + thumbs
+  const SHEET_HEIGHT = 400;
+  const COLLAPSED_VISIBLE = 150; // amount of sheet visible when collapsed
+  const COLLAPSED_OFFSET = SHEET_HEIGHT - COLLAPSED_VISIBLE;
 
-    const { allOptionNames, selectedName } = data;
-    if (!allOptionNames || !allOptionNames.length) return;
+  bottomSheet.style.height = SHEET_HEIGHT + "px";
+  bottomSheet.style.transform = `translateY(${COLLAPSED_OFFSET}px)`;
 
-    let currentIndex = allOptionNames.indexOf(selectedName);
-    if (currentIndex === -1) currentIndex = 0;
+  let sheetExpanded = false;
 
-    let newIndex = currentIndex + direction;
+  // handle & chevron
+  const handleArea = document.createElement("div");
+  handleArea.style.display = "flex";
+  handleArea.style.flexDirection = "column";
+  handleArea.style.alignItems = "center";
+  handleArea.style.gap = "6px";
+  handleArea.style.marginBottom = "6px";
+  handleArea.style.cursor = "pointer";
 
-    // wrap around
-    if (newIndex < 0) {
-      newIndex = allOptionNames.length - 1;
-    } else if (newIndex >= allOptionNames.length) {
-      newIndex = 0;
+  const handleBar = document.createElement("div");
+  handleBar.style.width = "52px";
+  handleBar.style.height = "4px";
+  handleBar.style.borderRadius = "999px";
+  handleBar.style.backgroundColor = "#d4d4d8";
+
+  const chevronIcon = document.createElement("span");
+  chevronIcon.textContent = "▲";
+  chevronIcon.style.fontSize = "0.75rem";
+  chevronIcon.style.color = "#9ca3af";
+
+  handleArea.appendChild(handleBar);
+  handleArea.appendChild(chevronIcon);
+  bottomSheet.appendChild(handleArea);
+
+  function setSheetExpanded(expanded) {
+    sheetExpanded = expanded;
+    if (sheetExpanded) {
+      bottomSheet.style.transform = "translateY(0)";
+      chevronIcon.textContent = "▼";
+      if (mobileExpandedArea) {
+        mobileExpandedArea.style.display = "flex";
+      }
+    } else {
+      bottomSheet.style.transform = `translateY(${COLLAPSED_OFFSET}px)`;
+      chevronIcon.textContent = "▲";
+      if (mobileExpandedArea) {
+        mobileExpandedArea.style.display = "none";
+      }
     }
-
-    const nextName = allOptionNames[newIndex];
-    applySelectionByName(nextName);
-    // applySelectionByName will trigger the texture update + re-render thumbnails
   }
+
+  function toggleSheet() {
+    setSheetExpanded(!sheetExpanded);
+  }
+
+  // current product summary
+  const summaryRow = document.createElement("div");
+  summaryRow.style.display = "flex";
+  summaryRow.style.alignItems = "center";
+  summaryRow.style.gap = "10px";
+  summaryRow.style.marginBottom = "8px";
+
+  const summaryThumb = document.createElement("img");
+  summaryThumb.id = "current-product-thumb";
+  summaryThumb.style.width = "52px";
+  summaryThumb.style.height = "52px";
+  summaryThumb.style.borderRadius = "12px";
+  summaryThumb.style.objectFit = "cover";
+  summaryThumb.style.border = "1px solid #e5e7eb";
+  summaryThumb.style.backgroundColor = "#ffffff";
+
+  const summaryTextWrap = document.createElement("div");
+  summaryTextWrap.style.display = "flex";
+  summaryTextWrap.style.flexDirection = "column";
+  summaryTextWrap.style.flex = "1";
+  summaryTextWrap.style.minWidth = "0";
+
+  const summaryTitle = document.createElement("p");
+  summaryTitle.id = "current-product-title";
+  summaryTitle.textContent = "-";
+  summaryTitle.style.margin = "0";
+  summaryTitle.style.fontSize = "0.9rem";
+  summaryTitle.style.fontWeight = "600";
+
+  const summarySubtitle = document.createElement("p");
+  summarySubtitle.id = "current-product-subtitle";
+  summarySubtitle.textContent = "";
+  summarySubtitle.style.margin = "0";
+  summarySubtitle.style.fontSize = "0.75rem";
+  summarySubtitle.style.color = "#6b7280";
+
+  const summaryLink = document.createElement("a");
+  summaryLink.id = "current-product-link";
+  summaryLink.textContent = "More product details →";
+  summaryLink.href = "#";
+  summaryLink.target = "_blank";
+  summaryLink.style.marginTop = "2px";
+  summaryLink.style.fontSize = "0.75rem";
+  summaryLink.style.color = "#111827";
+  summaryLink.style.textDecoration = "none";
+  summaryLink.style.display = "none";
+
+  summaryTextWrap.appendChild(summaryTitle);
+  summaryTextWrap.appendChild(summarySubtitle);
+  summaryTextWrap.appendChild(summaryLink);
+
+  summaryRow.appendChild(summaryThumb);
+  summaryRow.appendChild(summaryTextWrap);
+  bottomSheet.appendChild(summaryRow);
 
   // horizontal thumbs strip with side chevrons
   const thumbStrip = document.createElement("div");
@@ -1544,18 +1624,17 @@ if (!kitchenOverlay) {
   thumbStrip.style.position = "relative";
   thumbStrip.style.display = "flex";
   thumbStrip.style.alignItems = "center";
-  thumbStrip.style.width = "100%";
+  thumbStrip.style.marginBottom = "6px";
 
   const thumbRow = document.createElement("div");
   thumbRow.id = "mobile-thumb-row";
   thumbRow.style.display = "flex";
   thumbRow.style.gap = "8px";
   thumbRow.style.overflowX = "auto";
-  thumbRow.style.padding = "4px 0";
+  thumbRow.style.paddingBottom = "6px";
   thumbRow.style.webkitOverflowScrolling = "touch";
   thumbRow.style.scrollBehavior = "smooth";
   thumbRow.style.flex = "1";
-  thumbRow.style.alignItems = "center";
 
   const leftChevronBtn = document.createElement("button");
   leftChevronBtn.textContent = "‹";
@@ -1593,27 +1672,76 @@ if (!kitchenOverlay) {
   rightChevronBtn.style.backdropFilter = "blur(4px)";
   rightChevronBtn.style.cursor = "pointer";
 
-  // Chevrons now move to previous/next product
-  leftChevronBtn.addEventListener("click", (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    selectAdjacentMobileOption(-1); // previous
+  leftChevronBtn.addEventListener("click", () => {
+    thumbRow.scrollBy({ left: -120, behavior: "smooth" });
   });
-
-  rightChevronBtn.addEventListener("click", (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    selectAdjacentMobileOption(1); // next
+  rightChevronBtn.addEventListener("click", () => {
+    thumbRow.scrollBy({ left: 120, behavior: "smooth" });
   });
 
   thumbStrip.appendChild(thumbRow);
   thumbStrip.appendChild(leftChevronBtn);
   thumbStrip.appendChild(rightChevronBtn);
   bottomSheet.appendChild(thumbStrip);
+
+  // expanded content (search + list)
+  const mobileExpandedArea = document.createElement("div");
+  mobileExpandedArea.id = "mobile-expanded-area";
+  mobileExpandedArea.style.display = "none";
+  mobileExpandedArea.style.flexDirection = "column";
+  mobileExpandedArea.style.gap = "8px";
+  mobileExpandedArea.style.flex = "1";
+
+  // tap on handle expands/collapses
+  handleArea.addEventListener("click", toggleSheet);
+
+  // mobile search
+  const mobileSearchRow = document.createElement("div");
+  mobileSearchRow.style.display = "flex";
+  mobileSearchRow.style.alignItems = "center";
+  mobileSearchRow.style.padding = "0";
+
+  const mobileSearchInput = document.createElement("input");
+  mobileSearchInput.type = "text";
+  mobileSearchInput.placeholder = "Search...";
+  mobileSearchInput.style.flex = "1";
+  mobileSearchInput.style.fontSize = "0.8rem";
+  mobileSearchInput.style.padding = "6px 10px";
+  mobileSearchInput.style.borderRadius = "999px";
+  mobileSearchInput.style.border = "1px solid #d0d0d0";
+  mobileSearchInput.style.outline = "none";
+
+  mobileSearchInput.addEventListener("input", (e) => {
+    currentSearchTerm = e.target.value || "";
+    updateOptionsRow();
+  });
+
+  mobileSearchRow.appendChild(mobileSearchInput);
+  mobileExpandedArea.appendChild(mobileSearchRow);
+
+  // mobile list container
+  const mobileOptionsContainer = document.createElement("div");
+  mobileOptionsContainer.id = "options-container-mobile";
+  mobileOptionsContainer.style.flex = "1";
+  mobileOptionsContainer.style.overflowY = "auto";
+  mobileOptionsContainer.style.display = "flex";
+  mobileOptionsContainer.style.flexDirection = "column";
+  mobileOptionsContainer.style.gap = "10px";
+  mobileOptionsContainer.style.paddingTop = "4px";
+  mobileOptionsContainer.style.webkitOverflowScrolling = "touch";
+  mobileExpandedArea.appendChild(mobileOptionsContainer);
+
+  // mobile brand
+  const mobileBrand = document.createElement("div");
+  mobileBrand.textContent = "Powered by Plan Vector";
+  mobileBrand.style.textAlign = "right";
+  mobileBrand.style.fontSize = "0.7rem";
+  mobileBrand.style.color = "#9ca3af";
+  mobileBrand.style.marginTop = "4px";
+  mobileExpandedArea.appendChild(mobileBrand);
+
+  bottomSheet.appendChild(mobileExpandedArea);
   mainPanel.appendChild(bottomSheet);
-
-
-
 
   body.appendChild(mainPanel);
   kitchenOverlay.appendChild(body);
