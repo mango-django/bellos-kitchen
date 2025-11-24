@@ -116,19 +116,19 @@ const floorTextureOptions = {
 
 const worktopTextureOptions = {
   "White Laquer": "/textures/worktopFolder/Kitchen_Worktop_Bake.webp",
-  "Sienna Marble Grey": "/textures/worktopFolder/Kitchen_Worktop_Bake_1.webp",
-  "Caeserstone Attica": "/textures/worktopFolder/Kitchen_Worktop_Bake_2.webp",
-  "Jura Anthracite": "/textures/worktopFolder/Kitchen_Worktop_Bake_3.webp",
-  "Pietra Grigia": "/textures/worktopFolder/Kitchen_Worktop_Bake_4.webp",
-  "Pietra Grigia Black": "/textures/worktopFolder/Kitchen_Worktop_Bake_5.webp",
-  "Granite Braganza": "/textures/worktopFolder/Kitchen_Worktop_Bake_7.webp",
-  "Concrete Chicago": "/textures/worktopFolder/Kitchen_Worktop_Bake_9.webp",
-  "Inox Metallic": "/textures/worktopFolder/Kitchen_Worktop_Bake_10.webp",
-  "Linen Anthracite": "/textures/worktopFolder/Kitchen_Worktop_Bake_12.webp",
-  "Chromix Bronze": "/textures/worktopFolder/Kitchen_Worktop_Bake_15.webp",
-  "Rock Metal": "/textures/worktopFolder/Kitchen_Worktop_Bake_18.webp",
-  "Oak Valley": "/textures/worktopFolder/Kitchen_Worktop_Bake_20.webp",
-  "Oak Soria": "/textures/worktopFolder/Kitchen_Worktop_Bake_21.webp",
+  "Jakarta Custom": "/textures/worktopFolder/jakarta-sample-worktop.webp",
+  "Caeserstone Custom": "/textures/worktopFolder/Kitchen_Worktop_Bake_2.webp",
+  "Jura Anthracite Custom": "/textures/worktopFolder/Kitchen_Worktop_Bake_3.webp",
+  "Pietra Grigia Custom": "/textures/worktopFolder/Kitchen_Worktop_Bake_4.webp",
+  "Pietra Grigia Black Custom": "/textures/worktopFolder/Kitchen_Worktop_Bake_5.webp",
+  "Granite Braganza Custom": "/textures/worktopFolder/Kitchen_Worktop_Bake_7.webp",
+  "Concrete Chicago Custom": "/textures/worktopFolder/Kitchen_Worktop_Bake_9.webp",
+  "Inox Metallic Custom": "/textures/worktopFolder/Kitchen_Worktop_Bake_10.webp",
+  "Linen Anthracite Custom": "/textures/worktopFolder/Kitchen_Worktop_Bake_12.webp",
+  "Chromix Bronze Custom": "/textures/worktopFolder/Kitchen_Worktop_Bake_15.webp",
+  "Rock Metal Custom": "/textures/worktopFolder/Kitchen_Worktop_Bake_18.webp",
+  "Oak Valley Custom": "/textures/worktopFolder/Kitchen_Worktop_Bake_20.webp",
+  "Oak Soria Custom": "/textures/worktopFolder/Kitchen_Worktop_Bake_21.webp",
 };
 
 // Kept for backwards compatibility, but no longer used for UI
@@ -175,7 +175,7 @@ const stoolsTextureOptions = {
 // Thumbnails
 // ----------
 const floorThumbnailOptions = {
-  Alissandro: "/thumbnails/fl_alissandro.webp",
+  Alessandro: "/thumbnails/fl_alessandro.webp",
   Vogue: "/thumbnails/fl_vogue.webp",
   Living: "/thumbnails/fl_living.webp",
   Alpaca: "/thumbnails/fl_alpaca.webp",
@@ -198,23 +198,24 @@ const floorThumbnailOptions = {
   "Lakeside Cement Dark Grey": "/thumbnails/fl_lakeside_cement_dark_grey.jpg",
   "Lakeside Cement Black": "/thumbnails/fl_lakeside_cement_black.jpg",
   "Outer Stone Beige": "/thumbnails/fl_outer_stone_beige.jpg",
+  "Camo Stone Black": "/thumbnails/fl_camo_stone_black.webp",
 };
 
 const worktopThumbnailOptions = {
   "White Laquer": "/thumbnails/w_white_laquer.webp",
-  "Sienna Marble Grey": "/thumbnails/w_sienna_marble_grey.webp",
-  "Caeserstone Attica": "/thumbnails/w_caeserstone_attica.webp",
-  "Jura Anthracite": "/thumbnails/w_jura_anthracite.webp",
-  "Pietra Grigia": "/thumbnails/w_pietra_grigia.webp",
-  "Pietra Grigia Black": "/thumbnails/w_pietra_grigia_black.webp",
-  "Granite Braganza": "/thumbnails/w_granite_braganza.webp",
-  "Concrete Chicago": "/thumbnails/w_concrete_chicago.webp",
-  "Inox Metallic": "/thumbnails/w_inox_metallic.webp",
-  "Linen Anthracite": "/thumbnails/w_linen_anthracite.webp",
-  "Chromix Bronze": "/thumbnails/w_chromix_bronze.webp",
-  "Rock Metal": "/thumbnails/w_rock_metal.webp",
-  "Oak Valley": "/thumbnails/w_oak_valley.webp",
-  "Oak Soria": "/thumbnails/w_oak_soria.webp",
+  "Jakarta Custom": "/thumbnails/w_jakarta_custom.webp",
+  "Caeserstone Custom": "/thumbnails/w_caeserstone_attica.webp",
+  "Jura Anthracite Custom": "/thumbnails/w_jura_anthracite.webp",
+  "Pietra Grigia Custom": "/thumbnails/w_pietra_grigia.webp",
+  "Pietra Grigia Black Custom": "/thumbnails/w_pietra_grigia_black.webp",
+  "Granite Braganza Custom": "/thumbnails/w_granite_braganza.webp",
+  "Concrete Chicago Custom": "/thumbnails/w_concrete_chicago.webp",
+  "Inox Metallic Custom": "/thumbnails/w_inox_metallic.webp",
+  "Linen Anthracite Custom": "/thumbnails/w_linen_anthracite.webp",
+  "Chromix Bronze Custom": "/thumbnails/w_chromix_bronze.webp",
+  "Rock Metal Custom": "/thumbnails/w_rock_metal.webp",
+  "Oak Valley Custom": "/thumbnails/w_oak_valley.webp",
+  "Oak Soria Custom": "/thumbnails/w_oak_soria.webp",
 };
 
 const cupboardsThumbnailOptions = {
@@ -635,6 +636,7 @@ function updateMobileThumbRow(data, filteredNames) {
     btn.style.background = "transparent";
     btn.style.padding = "0";
     btn.style.cursor = "pointer";
+    btn.dataset.optionName = name; // needed so chevrons can find this thumb
 
     const wrap = document.createElement("div");
     wrap.style.width = "64px";
@@ -671,6 +673,7 @@ function updateMobileThumbRow(data, filteredNames) {
     thumbRow.appendChild(btn);
   });
 }
+
 
 // ------------------
 // Cupboards colour picker UI (desktop + mobile)
@@ -824,39 +827,36 @@ function updateOptionsRow() {
   );
   const mobileContainer = document.getElementById("options-container-mobile");
 
-  const containers = [desktopContainer, mobileContainer].filter(Boolean);
-  containers.forEach((c) => (c.innerHTML = ""));
+  // Clear existing content
+  if (desktopContainer) desktopContainer.innerHTML = "";
+  if (mobileContainer) mobileContainer.innerHTML = "";
 
   const term = currentSearchTerm.trim().toLowerCase();
 
-  // Make this mutable so we can reorder it
-  let optionNames = term
+  // Base filtered set (used as-is for DESKTOP)
+  const filteredNames = term
     ? allOptionNames.filter((name) => name.toLowerCase().includes(term))
-    : allOptionNames;
+    : allOptionNames.slice(); // copy
 
-  // 🔹 For Floor & Backsplash: always pin the selected item to the top,
-  // just like a "searched" image result showing first.
-  if (
-    (currentCategory === "Floor" || currentCategory === "Backsplash") &&
-    selectedName &&
-    optionNames.includes(selectedName)
-  ) {
-    optionNames = [
-      selectedName,
-      ...optionNames.filter((name) => name !== selectedName),
-    ];
-  }
-
-  if (!optionNames.length) {
-    containers.forEach((container) => {
-      if (!container) return;
+  if (!filteredNames.length) {
+    // Desktop: "No results"
+    if (desktopContainer) {
       const empty = document.createElement("p");
       empty.textContent = "No results found.";
       empty.style.fontSize = "0.8rem";
       empty.style.color = "#6b7280";
-      container.appendChild(empty);
-    });
-    updateMobileThumbRow(data, optionNames);
+      desktopContainer.appendChild(empty);
+    }
+    // Mobile: "No results"
+    if (mobileContainer) {
+      const empty = document.createElement("p");
+      empty.textContent = "No results found.";
+      empty.style.fontSize = "0.8rem";
+      empty.style.color = "#6b7280";
+      mobileContainer.appendChild(empty);
+    }
+
+    updateMobileThumbRow(data, filteredNames);
     return;
   }
 
@@ -956,16 +956,38 @@ function updateOptionsRow() {
     return card;
   }
 
-  containers.forEach((container) => {
-    if (!container) return;
-    optionNames.forEach((name) => {
-      container.appendChild(createCard(name));
+  // DESKTOP LIST: original filtered order (unchanged)
+  if (desktopContainer) {
+    filteredNames.forEach((name) => {
+      desktopContainer.appendChild(createCard(name));
     });
-  });
+  }
 
-  // keep mobile thumbnails in sync with the same ordering
-  updateMobileThumbRow(data, optionNames);
+  // MOBILE LIST: selected item pinned to the top for Floor & Backsplash
+  if (mobileContainer) {
+    let mobileNames = filteredNames.slice();
+
+    if (
+      (currentCategory === "Floor" || currentCategory === "Backsplash") &&
+      selectedName &&
+      mobileNames.includes(selectedName)
+    ) {
+      mobileNames = [
+        selectedName,
+        ...mobileNames.filter((name) => name !== selectedName),
+      ];
+    }
+
+    mobileNames.forEach((name) => {
+      mobileContainer.appendChild(createCard(name));
+    });
+  }
+
+  // Mobile thumbnail row:
+  // keep filteredNames order so the active border moves along the strip
+  updateMobileThumbRow(data, filteredNames);
 }
+
 
 
 // ------------------
@@ -1540,10 +1562,10 @@ function selectAdjacentTexture(direction) {
 
   const nextName = allOptionNames[nextIndex];
 
-  // This already updates the 3D texture + lists
+  // This already updates the 3D texture + desktop/mobile lists
   applySelectionByName(nextName);
 
-  // Scroll that thumbnail into view (if dataset.optionName is set on buttons)
+  // Scroll that thumbnail into view (mobile strip)
   const thumbRow = document.getElementById("mobile-thumb-row");
   if (thumbRow) {
     const buttons = Array.from(thumbRow.children);
@@ -1559,6 +1581,7 @@ function selectAdjacentTexture(direction) {
     }
   }
 }
+
 
 
 // ----- MOBILE BOTTOM SHEET -----
